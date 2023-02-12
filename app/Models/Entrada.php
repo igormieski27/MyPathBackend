@@ -7,11 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Laravel\Sanctum\HasApiTokens;
 
-class Usuario extends Authenticatable
+class Entrada extends BaseModel
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
 
-    protected $table = 'principal.usuarios';
+    protected $table = 'entradas';
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +19,10 @@ class Usuario extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nome',
-        'email',
-        'senha',
+        'id_funcionario',
+        'data_emissao',
+        'valor_total',
+        'observacao',
     ];
 
     /**
@@ -29,9 +30,7 @@ class Usuario extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'senha',
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
@@ -40,5 +39,6 @@ class Usuario extends Authenticatable
      */
     protected $casts = [
         'id' => 'string',
+        'id_funcionario' => 'string',
     ];
 }

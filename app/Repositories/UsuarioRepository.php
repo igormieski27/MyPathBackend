@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Usuario;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class UsuarioRepository extends BaseRepository
 {
@@ -19,5 +20,12 @@ class UsuarioRepository extends BaseRepository
             ->where('email', $email)
             ->where('senha', $senha)
             ->first();
+    }
+
+    public function comboFuncionarios(): Collection
+    {
+        return $this->model
+            ->select('id', 'nome')
+            ->get();
     }
 }

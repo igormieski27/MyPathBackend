@@ -2,15 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Cliente;
-use App\Repositories\BaseRepository;
+use App\Models\Produto;
 use Illuminate\Database\Eloquent\Collection;
 
-class ClienteRepository extends BaseRepository
+class ProdutoRepository extends BaseRepository
 {
-    function __construct()
+    public function __construct()
     {
-        $this->model = $this->resolveModel(Cliente::class);
+        $this->model = $this->resolveModel(Produto::class);
     }
 
     public function findAll(): Collection
@@ -20,10 +19,18 @@ class ClienteRepository extends BaseRepository
             ->get();
     }
 
-    public function combo(): Collection
+    public function carregarProdutos(): Collection
     {
         return $this->model
-            ->select('id', 'nome')
+            ->select('id', 'descricao')
+            ->get();
+    }
+
+    public function comboRemedios(): Collection
+    {
+        return $this->model
+            ->select('id', 'descricao')
+            ->where('controlado', 'S')
             ->get();
     }
 

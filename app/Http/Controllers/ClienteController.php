@@ -8,11 +8,18 @@ use Illuminate\Routing\Controller as BaseController;
 
 class ClienteController extends BaseController
 {
-    public function index(Request $request, ClienteService $clienteService) {
+    public function index(Request $request, ClienteService $clienteService)
+    {
         return $clienteService->carregarClientes();
     }
 
-    public function save(Request $request, ClienteService $clienteService) {
+    public function carregarCombo(Request $request, ClienteService $clienteService)
+    {
+        return $clienteService->carregarComboBox();
+    }
+
+    public function save(Request $request, ClienteService $clienteService)
+    {
         return $clienteService->save($request->only([
             'id',
             'nome',
@@ -26,7 +33,8 @@ class ClienteController extends BaseController
         ]));
     }
 
-    public function delete(Request $request, ClienteService $clienteService) {
-        return $clienteService->delete($request->only('id'));    
+    public function delete(Request $request, ClienteService $clienteService)
+    {
+        return $clienteService->delete($request->only(['id']));
     }
 }

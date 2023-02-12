@@ -20,7 +20,7 @@ class Cliente extends Authenticatable
      */
     protected $fillable = [
         'nome',
-        'cpf_cnpj',
+        'cnpj_cpf',
         'endereco_rua',
         'endereco_numero',
         'endereco_bairro',
