@@ -21,6 +21,7 @@ use App\Http\Controllers\SaidaController;
 */
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [UsuarioController::class, 'login']);
+    Route::post('/new', [UsuarioController::class, 'cadastrar']);
     Route::post('/logout', [UsuarioController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::middleware('auth:sanctum')->group(function () {

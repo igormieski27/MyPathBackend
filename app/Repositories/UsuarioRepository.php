@@ -28,4 +28,12 @@ class UsuarioRepository extends BaseRepository
             ->select('id', 'nome')
             ->get();
     }
+
+    public function validarEmail($email): ?Usuario
+    {
+        return $this->model
+            ->select('*')
+            ->where('email', $email)
+            ->first();
+    }
 }

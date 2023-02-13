@@ -2,7 +2,9 @@
 
 return [
     'auth' => [
-        'invalido' => 'Usuário ou senha inválidos.'
+        'invalido' => 'Usuário ou senha inválidos.',
+        'email_invalido' => 'O E-mail já existe.',
+        'cadastrado' => 'Usuário cadastrado com sucesso.'
     ],
     'cliente' => [
         'nao_localizado' => 'Cliente não localizado.',

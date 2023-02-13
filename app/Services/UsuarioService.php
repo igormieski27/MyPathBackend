@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Usuario;
 use App\Repositories\UsuarioRepository;
 use App\Services\BaseService;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioService extends BaseService
 {
@@ -35,6 +37,30 @@ class UsuarioService extends BaseService
             'usuario' => $usuario,
             'token' => $token
         ]);
+    }
+
+    public function save($body)
+    {
+        $emailExiste = $this->usuarioRepository->validarEmail($body['email']);
+        if ($emailExiste) {
+            return $this->responseNotAcceptable(trans('messages.auth.email_invalido'));
+        }
+
+
+        $data = $body;
+        $data['senha'] = bcrypt(base64_decode($body['senha']));
+        try {
+            DB::beginTransaction();
+
+            $usuario = $this->usuarioRepository->create($body);
+            $this->usuarioRepository->save($usuario);
+
+            DB::commit();
+            return $this->responseCreated(trans( 'messages.auth.cadastrado'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->responseFailure($e);
+        }
     }
 
     public function deslogar($request)
