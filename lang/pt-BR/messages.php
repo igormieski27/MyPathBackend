@@ -12,11 +12,11 @@ return [
         'alterado' => 'Cliente alterado com sucesso.',
         'excluido' => 'Cliente excluído com sucesso.',
     ],
-    'produto' => [
-        'nao_localiado' => 'Produto não localizado.',
-        'cadastrado' => 'Produto cadastrado com sucesso.',
-        'alterado' => 'Produto alterado com sucesso.',
-        'excluido' => 'Produto excluído com sucesso.',
+    'habito' => [
+        'nao_localiado' => 'Habito não localizado.',
+        'cadastrado' => 'Habito cadastrado com sucesso.',
+        'alterado' => 'Habito alterado com sucesso.',
+        'excluido' => 'Habito excluído com sucesso.',
     ],
     'receita' => [
         'nao_localiada' => 'Receita não localizada.',

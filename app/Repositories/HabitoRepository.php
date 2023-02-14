@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Produto;
+use App\Models\Habito;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProdutoRepository extends BaseRepository
+class HabitoRepository extends BaseRepository
 {
     public function __construct()
     {
-        $this->model = $this->resolveModel(Produto::class);
+        $this->model = $this->resolveModel(Habito::class);
     }
 
     public function findAll(): Collection
@@ -19,18 +19,10 @@ class ProdutoRepository extends BaseRepository
             ->get();
     }
 
-    public function carregarProdutos(): Collection
+    public function carregarHabitos(): Collection
     {
         return $this->model
             ->select('id', 'descricao')
-            ->get();
-    }
-
-    public function comboRemedios(): Collection
-    {
-        return $this->model
-            ->select('id', 'descricao')
-            ->where('controlado', 'S')
             ->get();
     }
 
