@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Http\Request;
+
+use App\Repositories\DummyModelRepository;
+
+class DummyModelService extends BaseService
+{
+    protected DummyModelRepository $repository;
+
+    public function __construct(
+        Request $request,
+        DummyModelRepository $repository,
+    )
+    {
+        parent::__construct($request);
+
+        $this->repository = $repository;
+    }
+}

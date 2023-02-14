@@ -7,11 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Laravel\Sanctum\HasApiTokens;
 
-class Cliente extends Authenticatable
+class EntradaProduto extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'clientes';
+    protected $table = 'entradas_produtos';
 
     /**
      * The attributes that are mass assignable.
@@ -19,14 +19,11 @@ class Cliente extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nome',
-        'cnpj_cpf',
-        'endereco_rua',
-        'endereco_numero',
-        'endereco_bairro',
-        'endereco_complemento',
-        'telefone',
-        'email',
+        'id_entrada',
+        'id_produto',
+        'quantidade',
+        'valor_unitario',
+        'valor_total'
     ];
 
     /**
@@ -43,5 +40,7 @@ class Cliente extends Authenticatable
      */
     protected $casts = [
         'id' => 'string',
+        'id_entrada' => 'string',
+        'id_produto' => 'string',
     ];
 }

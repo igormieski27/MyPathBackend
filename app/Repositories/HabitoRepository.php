@@ -2,15 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Cliente;
-use App\Repositories\BaseRepository;
+use App\Models\Habito;
 use Illuminate\Database\Eloquent\Collection;
 
-class ClienteRepository extends BaseRepository
+class HabitoRepository extends BaseRepository
 {
-    function __construct()
+    public function __construct()
     {
-        $this->model = $this->resolveModel(Cliente::class);
+        $this->model = $this->resolveModel(Habito::class);
     }
 
     public function findAll(): Collection
@@ -20,10 +19,10 @@ class ClienteRepository extends BaseRepository
             ->get();
     }
 
-    public function combo(): Collection
+    public function carregarHabitos(): Collection
     {
         return $this->model
-            ->select('id', 'nome')
+            ->select('id', 'descricao')
             ->get();
     }
 

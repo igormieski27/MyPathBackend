@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\DummyModel;
+
+class DummyModelRepository extends BaseRepository
+{
+    public function __construct()
+    {
+        $this->model = $this->resolveModel(DummyModel::class);
+    }
+}

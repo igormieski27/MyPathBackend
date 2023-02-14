@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class BaseRepository
+class BaseRepository extends DB
 {
     protected Model $model;
 
@@ -14,7 +15,7 @@ class BaseRepository
      */
     public function createQueryBuilder(): Builder
     {
-        return $this->model->queryu()->newQuery();
+        return $this->model->query()->newQuery();
     }
 
     /**
