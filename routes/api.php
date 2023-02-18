@@ -5,7 +5,7 @@ use App\Http\Controllers\EntradaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\HabitoController;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\SaidaController;
 
@@ -36,13 +36,12 @@ Route::group(['prefix' => 'auth'], function () {
             Route::delete('/excluir', [ClienteController::class, 'delete']);
         });
         
-        Route::group(['prefix' => 'produto'], function () {
-            Route::get('/', [ProdutoController::class, 'index']);
-            Route::get('/buscar/{id}', [ProdutoController::class, 'buscarProduto']);
-            Route::get('/combo', [ProdutoController::class, 'carregarCombo']);
-            Route::get('/combo-remedio', [ProdutoController::class, 'carregarComboRemedio']);
-            Route::post('/', [ProdutoController::class, 'save']);
-            Route::delete('/excluir', [ProdutoController::class, 'delete']);
+        Route::group(['prefix' => 'Habito'], function () {
+            Route::get('/', [HabitoController::class, 'index']);
+            Route::get('/buscar/{id}', [HabitoController::class, 'buscarHabito']);
+            Route::get('/combo', [HabitoController::class, 'carregarCombo']);
+            Route::post('/', [HabitoController::class, 'save']);
+            Route::delete('/excluir', [HabitoController::class, 'delete']);
         });
         
         Route::group(['prefix' => 'receita'], function () {
