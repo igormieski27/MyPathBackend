@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 class HabitoController extends BaseController
 {
-    public function index(Request $request, HabitoService $HabitosService)
+    public function listar(Request $request, HabitoService $HabitosService)
     {
-        return $HabitosService->carregarHabitos();
+        return $HabitosService->listarHabitos();
     }
 
     public function buscarHabito(Request $request, string $id, HabitoService $HabitosService)
@@ -18,20 +18,28 @@ class HabitoController extends BaseController
         return $HabitosService->findOne($id);
     }
 
-    public function carregarCombo(Request $request, HabitoService $HabitoService)
-    {
-        return $HabitoService->carregarCombo();
-    }
-    
     public function save(Request $request, HabitoService $HabitosService)
     {
+        $request->validate([
+            'id' => 'numeric',
+            'id_usuario' => 'required|numeric',
+            'title' => 'string',
+            'icon' => 'string',
+            'color' => 'string',
+            'period' => 'numeric',
+            'days' => 'string',
+            'value' => "boolean"
+        ]);
+
         return $HabitosService->save($request->only([
             'id',
             'id_usuario',
-            'titulo',
+            'title',
             'icon',
-            'period',
             'color',
+            'period',
+            'days',
+            'value'
         ]));
     }
 

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
@@ -31,6 +30,7 @@ class Usuario extends Authenticatable
      */
     protected $hidden = [
         'senha',
+        'remember_token',
     ];
 
     /**

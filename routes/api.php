@@ -23,48 +23,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [UsuarioController::class, 'login']);
     Route::post('/new', [UsuarioController::class, 'cadastrar']);
     Route::post('/logout', [UsuarioController::class, 'logout'])->middleware('auth:sanctum');
+});
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::group(['prefix' => 'funcionario'], function () {
-            Route::get('/combo', [UsuarioController::class, 'carregarCombo']);
-        });
-        
-        Route::group(['prefix' => 'cliente'], function () {
-            Route::get('/', [ClienteController::class, 'index']);
-            Route::get('/combo', [ClienteController::class, 'carregarCombo']);
-            Route::post('/', [ClienteController::class, 'save']);
-            Route::delete('/excluir', [ClienteController::class, 'delete']);
-        });
-        
-        Route::group(['prefix' => 'Habito'], function () {
-            Route::get('/', [HabitoController::class, 'index']);
-            Route::get('/buscar/{id}', [HabitoController::class, 'buscarHabito']);
-            Route::get('/combo', [HabitoController::class, 'carregarCombo']);
-            Route::post('/', [HabitoController::class, 'save']);
-            Route::delete('/excluir', [HabitoController::class, 'delete']);
-        });
-        
-        Route::group(['prefix' => 'receita'], function () {
-            Route::get('/', [ReceitaController::class, 'index']);
-            Route::get('/buscar/{id}', [ReceitaController::class, 'buscarReceita']);
-            Route::post('/', [ReceitaController::class, 'save']);
-            Route::delete('/excluir', [ReceitaController::class, 'delete']);
-            Route::post('/verificar-receita', [ReceitaController::class, 'verificarRemedio']);
-        });
-        
-        Route::group(['prefix' => 'saida'], function () {
-            Route::get('/', [SaidaController::class, 'index']);
-            Route::get('/buscar/{id}', [SaidaController::class, 'buscarSaida']);
-            Route::post('/', [SaidaController::class, 'save']);
-            Route::delete('/excluir', [SaidaController::class, 'delete']);
-        });
-        
-        Route::group(['prefix' => 'entrada'], function () {
-            Route::get('/', [EntradaController::class, 'index']);
-            Route::get('/buscar/{id}', [EntradaController::class, 'buscarEntrada']);
-            Route::post('/', [EntradaController::class, 'save']);
-            Route::delete('/excluir', [EntradaController::class, 'delete']);
-        });
+Route::middleware('auth:sanctum')->group(function () { 
+    Route::group(['prefix' => 'habito'], function () {
+        Route::get('/listar', [HabitoController::class, 'listar']);
+        Route::get('/carregar/{id}', [HabitoController::class, 'buscarHabito']);
+        Route::post('/salvar', [HabitoController::class, 'save']);
+        Route::delete('/excluir', [HabitoController::class, 'delete']);
     });
 });
 

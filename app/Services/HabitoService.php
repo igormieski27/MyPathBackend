@@ -21,9 +21,9 @@ class HabitoService extends BaseService
         $this->repository = $repository;
     }
 
-    public function carregarHabitos()
+    public function listarHabitos()
     {
-        $Habitos = $this->repository->findAll();
+        $Habitos = $this->repository->listar();
 
         return $this->responseSuccess($Habitos);
     }
@@ -33,13 +33,6 @@ class HabitoService extends BaseService
         $Habito = $this->repository->findOneById($id);
 
         return $this->responseSuccess($Habito);
-    }
-
-    public function carregarCombo()
-    {
-        $Habitos = $this->repository->carregarHabitos();
-
-        return $this->responseSuccess($Habitos);
     }
 
     public function save(array $body)

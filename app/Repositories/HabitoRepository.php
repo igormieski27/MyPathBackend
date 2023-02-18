@@ -12,17 +12,10 @@ class HabitoRepository extends BaseRepository
         $this->model = $this->resolveModel(Habito::class);
     }
 
-    public function findAll(): Collection
+    public function listar(): Collection
     {
         return $this->model
             ->select('*')
-            ->get();
-    }
-
-    public function carregarHabitos(): Collection
-    {
-        return $this->model
-            ->select('id', 'descricao')
             ->get();
     }
 

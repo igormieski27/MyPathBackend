@@ -11,7 +11,7 @@ class Habito extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'habitos';
+    protected $table = 'public.habitos';
 
     /**
      * The attributes that are mass assignable.
@@ -20,10 +20,12 @@ class Habito extends BaseModel
      */
     protected $fillable = [
         'id_usuario',
-        'titulo',
+        'title',
         'icon',
-        'period',
         'color',
+        'days',
+        'period',
+        'value'
     ];
 
     /**
@@ -39,6 +41,6 @@ class Habito extends BaseModel
      * @var array<string, string>
      */
     protected $casts = [
-        'id' => 'string',
+        'id' => 'string'
     ];
 }

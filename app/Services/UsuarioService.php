@@ -31,11 +31,9 @@ class UsuarioService extends BaseService
             return $this->responseNotFound(trans('messages.auth.invalido'));
         }
 
-        $token = $usuario->createToken($usuario->email)->plainTextToken;
-
         return $this->responseSuccess([
             'usuario' => $usuario,
-            'token' => $token
+            'token' => $usuario->createToken("API TOKEN")->plainTextToken
         ]);
     }
 
