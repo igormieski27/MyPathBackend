@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HabitoController;
+use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\SaidaController;
 
@@ -31,6 +32,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/carregar/{id}', [HabitoController::class, 'buscarHabito']);
         Route::post('/salvar', [HabitoController::class, 'save']);
         Route::delete('/excluir', [HabitoController::class, 'delete']);
+    });
+    Route::group(['prefix' => 'tarefa'], function () {
+        Route::get('/listar', [TarefaController::class, 'listar']);
+        Route::get('/carregar/{id}', [TarefaController::class, 'buscarTarefa']);
+        Route::post('/salvar', [TarefaController::class, 'save']);
+        Route::delete('/excluir', [TarefaController::class, 'delete']);
     });
 });
 
