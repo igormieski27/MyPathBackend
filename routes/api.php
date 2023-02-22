@@ -27,17 +27,26 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () { 
+    // HABITOS
     Route::group(['prefix' => 'habito'], function () {
         Route::get('/listar', [HabitoController::class, 'listar']);
         Route::get('/carregar/{id}', [HabitoController::class, 'buscarHabito']);
         Route::post('/salvar', [HabitoController::class, 'save']);
         Route::delete('/excluir', [HabitoController::class, 'delete']);
     });
+
+    // TAREFAS
     Route::group(['prefix' => 'tarefa'], function () {
         Route::get('/listar', [TarefaController::class, 'listar']);
         Route::get('/carregar/{id}', [TarefaController::class, 'buscarTarefa']);
         Route::post('/salvar', [TarefaController::class, 'save']);
         Route::delete('/excluir', [TarefaController::class, 'delete']);
+    });
+
+    // USUARIO
+    Route::group(['prefix' => 'usuario'], function () {
+        Route::get('/carregar/{id}', [UsuarioController::class, 'carregar']);
+        Route::post('/salvar', [UsuarioController::class, 'save']);
     });
 });
 

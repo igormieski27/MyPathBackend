@@ -39,22 +39,29 @@ class UsuarioService extends BaseService
 
     public function save($body)
     {
-        $emailExiste = $this->usuarioRepository->validarEmail($body['email']);
-        if ($emailExiste) {
-            return $this->responseNotAcceptable(trans('messages.auth.email_invalido'));
-        }
-
-
-        $data = $body;
-        $data['senha'] = bcrypt(base64_decode($body['senha']));
         try {
             DB::beginTransaction();
+            $usuario;
+            if (!isset($body['id'])) { // CADASTRO
+                $emailExiste = $this->usuarioRepository->validarEmail($body['email']);
+                if ($emailExiste) {
+                    return $this->responseNotAcceptable(trans('messages.auth.email_invalido'));
+                }
 
-            $usuario = $this->usuarioRepository->create($body);
+                $body['senha'] = bcrypt(base64_decode($body['senha']));
+                $usuario = $this->usuarioRepository->create($body);
+            } else { // EDIÇÃO
+                $usuario = $this->usuarioRepository->findOneById($body['id']);
+                if (!$usuario) {
+                    return $this->responseNotFound(trans('messages.usuario.nao_localiado'));
+                }
+
+                $usuario->fill($body);
+            }
             $this->usuarioRepository->save($usuario);
-
             DB::commit();
-            return $this->responseCreated(trans( 'messages.auth.cadastrado'));
+            
+            return $this->responseCreated(trans(isset($body['id']) ? 'messages.usuario.alterado' : 'messages.auth.cadastrado'));
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->responseFailure($e);
@@ -68,10 +75,10 @@ class UsuarioService extends BaseService
         return $this->responseSuccess('Usuário desconectado');
     }
 
-    public function carregarCombo()
+    public function findOne(string $id)
     {
-        $funcionarios = $this->usuarioRepository->comboFuncionarios();
+        $usuario =  $this->usuarioRepository->findOneById($id);
 
-        return $this->responseSuccess($funcionarios);
+        return $this->responseSuccess(['usuario' => $usuario ]);
     }
 }

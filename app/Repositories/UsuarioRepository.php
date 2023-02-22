@@ -22,18 +22,19 @@ class UsuarioRepository extends BaseRepository
             ->first();
     }
 
-    public function comboFuncionarios(): Collection
-    {
-        return $this->model
-            ->select('id', 'nome')
-            ->get();
-    }
-
     public function validarEmail($email): ?Usuario
     {
         return $this->model
             ->select('*')
             ->where('email', $email)
+            ->first();
+    }
+
+    public function findOneById(string $id)
+    {
+        return $this->model
+            ->select('*')
+            ->where('id', $id)
             ->first();
     }
 }

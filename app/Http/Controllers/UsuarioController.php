@@ -29,8 +29,34 @@ class UsuarioController extends BaseController
         return $usuarioService->save($request->only(['nome', 'email', 'senha']));
     }
 
+    public function carregar(Request $request, string $id, UsuarioService $usuarioService)
+    {
+        return $usuarioService->findOne($id);
+    }
+
     public function logout(Request $request, UsuarioService $usuarioService)
     {
         return $usuarioService->deslogar($request);
     }
+
+    public function save(Request $request, UsuarioService $usuarioService)
+    {
+        $request->validate([
+            'nome' => 'string',
+            'email' => 'string|email',
+            'personagem' => 'string',
+            'level' => 'numeric',
+            'xp' => 'numeric'
+        ]);
+
+        return $usuarioService->save($request->only([
+            'id',
+            'nome',
+            'email',
+            'personagem',
+            'level',
+            'xp'
+        ]));
+    }
+
 }
