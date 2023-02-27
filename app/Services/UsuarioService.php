@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Usuario;
 use App\Repositories\UsuarioRepository;
 use App\Services\BaseService;
+use App\Repositories\UsuarioTarefaRepository;
+use App\Repositories\TarefaRepository;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,15 +14,20 @@ use Illuminate\Support\Facades\DB;
 class UsuarioService extends BaseService
 {
     private $usuarioRepository;
+    protected UsuarioTarefaRepository $usuarioTarefaRepository;
+    protected TarefaRepository $tarefaRepository;
 
     public function __construct(
         Request $request,
-        UsuarioRepository $usuarioRepository
+        UsuarioRepository $usuarioRepository,
+        UsuarioTarefaRepository $usuarioTarefaRepository,
+        TarefaRepository $tarefaRepository
     )
     {
         parent::__construct($request);
 
         $this->usuarioRepository = $usuarioRepository;
+        $this->usuarioTarefaRepository = $usuarioTarefaRepository;
     }
 
     public function logar($body)
@@ -78,7 +85,15 @@ class UsuarioService extends BaseService
     public function findOne(string $id)
     {
         $usuario =  $this->usuarioRepository->findOneById($id);
+        $tarefas = $this->usuarioTarefaRepository->findOneByIdUsuario($id);
 
-        return $this->responseSuccess(['usuario' => $usuario ]);
+        return $this->responseSuccess(['usuario' => $usuario, 'tarefas' => $tarefas ]);
     }
+
+    // public function addTask(string $idTarefa, string $idUsuario)
+    // {
+    //     $tarefas = $this->tarefaRepository->findOneById($idUsuario);
+
+    //     return $this->responseSuccess(['usuario' => $usuario, 'tarefas' => $tarefas ]);
+    // }
 }
