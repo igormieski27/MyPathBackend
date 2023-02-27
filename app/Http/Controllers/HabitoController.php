@@ -22,7 +22,7 @@ class HabitoController extends BaseController
     {
         $request->validate([
             'id' => 'numeric',
-            'id_usuario' => 'required|numeric',
+            'id_usuario' => 'numeric',
             'title' => 'string',
             'icon' => 'string',
             'color' => 'string',
@@ -43,8 +43,8 @@ class HabitoController extends BaseController
         ]));
     }
 
-    public function delete(Request $request, HabitoService $HabitosService)
+    public function delete(Request $request, string $id, HabitoService $HabitosService)
     {
-        return $HabitosService->delete($request->only(['id']));
+        return $HabitosService->delete($id);
     }
 }

@@ -16,6 +16,7 @@ class HabitoRepository extends BaseRepository
     {
         return $this->model
             ->select('*')
+            ->orderBy('id', 'desc')
             ->get();
     }
 

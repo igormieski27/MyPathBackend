@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/listar', [HabitoController::class, 'listar']);
         Route::get('/carregar/{id}', [HabitoController::class, 'buscarHabito']);
         Route::post('/salvar', [HabitoController::class, 'save']);
-        Route::delete('/excluir', [HabitoController::class, 'delete']);
+        Route::delete('/excluir/{id}', [HabitoController::class, 'delete']);
     });
 
     // TAREFAS
@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/listar', [TarefaController::class, 'listar']);
         Route::get('/carregar/{id}', [TarefaController::class, 'buscarTarefa']);
         Route::post('/salvar', [TarefaController::class, 'save']);
-        Route::delete('/excluir', [TarefaController::class, 'delete']);
+        Route::delete('/excluir/{id}', [TarefaController::class, 'delete']);
     });
 
     // USUARIO

@@ -57,7 +57,7 @@ class HabitoService extends BaseService
             DB::commit();
 
             return $this->response(
-                trans(isset($body['id']) ? 'messages.Habito.alterado' : 'messages.Habito.cadastrado'),
+                isset($body['id']) ? trans('messages.Habito.alterado') : trans('messages.Habito.cadastrado'),
                 !isset($body['id']) ? 200 : 201
             );
         } catch (\Exception $e) {
@@ -66,9 +66,9 @@ class HabitoService extends BaseService
         }
     }
 
-    public function delete(array $body)
+    public function delete(string $id)
     {
-        $Habito = $this->repository->findOneById($body['id']);
+        $Habito = $this->repository->findOneById($id);
         
         if (!$Habito) {
             return $this->responseNotFound(trans('messages.Habito.nao_localizado'));
