@@ -18,6 +18,13 @@ return [
         'alterada' => 'Saída alterada com sucesso.',
         'excluida' => 'Saída excluída com sucesso.',
     ],
+
+    'tarefa' => [
+        'nao_localizada' => 'Tarefa não localizada.',
+        'alterada' => 'Tarefa alterada com sucesso.',
+        'vinculada' => 'Tarefa vinculada com sucesso'
+    ],
+
     'usuario' => [
         'nao_localiado' => 'Usuário não localizado.',
         'alterado' => 'Usuário alterado com sucesso.',

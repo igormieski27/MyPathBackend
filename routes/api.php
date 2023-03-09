@@ -38,9 +38,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // TAREFAS
     Route::group(['prefix' => 'tarefa'], function () {
         Route::get('/listar', [TarefaController::class, 'listar']);
-        Route::get('/carregar/{id}', [TarefaController::class, 'buscarTarefa']);
+        Route::get('/carregar/{id}', [TarefaController::class, 'carregarTarefas']);
         Route::post('/salvar', [TarefaController::class, 'save']);
         Route::delete('/excluir/{id}', [TarefaController::class, 'delete']);
+        Route::post('/concluirTarefa', [TarefaController::class, 'concluirTarefa']);
+        Route::post('/vincularTarefa', [TarefaController::class, 'vincularTarefa']);
     });
 
     // USUARIO

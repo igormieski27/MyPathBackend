@@ -5,20 +5,24 @@ namespace App\Services;
 use Illuminate\Http\Request;
 
 use App\Repositories\TarefaRepository;
+use App\Repositories\UsuarioTarefaRepository;
 use Illuminate\Support\Facades\DB;
 
 class TarefaService extends BaseService
 {
     protected TarefaRepository $repository;
+    protected UsuarioTarefaRepository $usuarioTarefaRepository;
 
     public function __construct(
         Request $request,
         TarefaRepository $repository,
+        UsuarioTarefaRepository $usuarioTarefaRepository,
     )
     {
         parent::__construct($request);
 
         $this->repository = $repository;
+        $this->usuarioTarefaRepository = $usuarioTarefaRepository;
     }
 
     public function listarTarefas()
@@ -87,4 +91,56 @@ class TarefaService extends BaseService
             return $this->responseFailure(trans('messages.Tarefa.nao_localizado'));
         }
     }
+
+
+    // Métodos UsuarioTarefa
+
+    public function findByIdUsuario(string $id){
+        $tarefas = $this->usuarioTarefaRepository->findByIdUsuario($id);
+        return $this->responseSuccess(['tarefas' => $tarefas]);
+    }
+
+
+    public function concluirTarefa(array $body) // $body = usuarioTarefa
+    {
+        try {
+            $idTarefa = $body['id_tarefa'];
+            $tarefaConcluida = $this->usuarioTarefaRepository->findByIds($body['id_usuario'], $body['id_tarefa']);
+
+            if (!isset($tarefaConcluida)) {
+                return $this->response(trans('messages.tarefa.nao_localizada'), 404);
+            }
+
+            $tarefaConcluida['status'] = $body['status'];
+            
+            DB::beginTransaction();
+            $this->usuarioTarefaRepository->save($tarefaConcluida);
+            DB::commit();
+
+            return $this->response(trans('messages.tarefa.alterada'), 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->responseFailure($e->getMessage());
+        }
+    }
+
+    public function vincularTarefa(array $body){
+        try{
+            $Tarefa = $this->usuarioTarefaRepository->create($body);
+            $Tarefa->fill($body);
+            DB::beginTransaction();
+            $this->usuarioTarefaRepository->save($Tarefa);
+            DB::commit();
+
+            return $this->response(trans('messages.tarefa.vinculada'), 200);
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $this->responseFailure($e->getMessage());
+        }
+    }
+    
+    
+
+  
+
 }

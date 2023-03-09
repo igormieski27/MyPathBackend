@@ -48,4 +48,31 @@ class TarefaController extends BaseController
     {
         return $TarefasService->delete($request->only(['id']));
     }
+
+    public function carregarTarefas(Request $request, string $id, TarefaService $TarefasService){
+        return $TarefasService->findByIdUsuario($id);
+    }
+
+    public function concluirTarefa(Request $request, TarefaService $TarefasService){
+        $request->validate([
+            'id_usuario' => 'required|string',
+            'id_tarefa' => 'required|string',
+            'status' => 'boolean'
+        ]);
+        return $TarefasService->concluirTarefa($request->only(['id_usuario', 'id_tarefa', 'status']));
+
+    }
+    
+    public function vincularTarefa(Request $request, TarefaService $TarefasService){
+        $request->validate([
+            'id_usuario' => 'required|string',
+            'id_tarefa' => 'required|string',
+            'status' => 'boolean'
+        ]);
+        return $TarefasService->vincularTarefa($request->only(['id_usuario', 'id_tarefa', 'status']));
+    }
+
+
+
+
 }

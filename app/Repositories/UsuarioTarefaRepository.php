@@ -16,8 +16,20 @@ class UsuarioTarefaRepository extends BaseRepository
     {
         return $this->model
             ->select('usuario_tarefa.*', 'tarefas.*')
-            ->join('tarefas', 'tarefas.id', '=', 'usuarioTarefas.id_tarefa')
+            ->join('tarefas', 'tarefas.id', '=', 'usuario_tarefa.id_tarefa')
             ->where('id_usuario', $id)
+            ->where('usuario_tarefa.status', false)
             ->get();
     }
+
+    public function findByIds(string $idUsuario, string $idTarefa)
+    {
+        return $this->model
+            ->select('usuario_tarefa.*')
+            ->join('tarefas', 'tarefas.id', '=', 'usuario_tarefa.id_tarefa')
+            ->where('id_usuario', $idUsuario)
+            ->where('id_tarefa', $idTarefa)
+            ->first();
+    }
+
 }

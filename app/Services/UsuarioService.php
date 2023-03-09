@@ -85,9 +85,9 @@ class UsuarioService extends BaseService
     public function findOne(string $id)
     {
         $usuario =  $this->usuarioRepository->findOneById($id);
-        $tarefas = $this->usuarioTarefaRepository->findOneByIdUsuario($id);
+        $tarefas = $this->usuarioTarefaRepository->findByIdUsuario($id);
 
-        return $this->responseSuccess(['usuario' => $usuario, 'tarefas' => $tarefas ]);
+        return $this->responseSuccess(['usuario' => $usuario]);
     }
 
     // public function addTask(string $idTarefa, string $idUsuario)

@@ -14,7 +14,8 @@ class UsuarioTarefa extends BaseModel
     protected $table = 'usuario_tarefa';
     protected $fillable = [
         'id_usuario',
-        'id_tarefa'
+        'id_tarefa',
+        'status'
     ];
 
     protected $hidden = [];
@@ -22,5 +23,6 @@ class UsuarioTarefa extends BaseModel
     protected $casts = [
         'id_usuario' => 'string',
         'id_tarefa' => 'string',
+        'id' => 'string'
     ];
 }
