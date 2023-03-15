@@ -6,23 +6,26 @@ use Illuminate\Http\Request;
 
 use App\Repositories\TarefaRepository;
 use App\Repositories\UsuarioTarefaRepository;
+use App\Repositories\UsuarioRepository;
 use Illuminate\Support\Facades\DB;
 
 class TarefaService extends BaseService
 {
     protected TarefaRepository $repository;
     protected UsuarioTarefaRepository $usuarioTarefaRepository;
-
+    protected UsuarioRepository $usuarioRepository;
     public function __construct(
         Request $request,
         TarefaRepository $repository,
         UsuarioTarefaRepository $usuarioTarefaRepository,
+        UsuarioRepository $usuarioRepository,
     )
     {
         parent::__construct($request);
 
         $this->repository = $repository;
         $this->usuarioTarefaRepository = $usuarioTarefaRepository;
+        $this->usuarioRepository = $usuarioRepository;
     }
 
     public function listarTarefas()
@@ -106,15 +109,18 @@ class TarefaService extends BaseService
         try {
             $idTarefa = $body['id_tarefa'];
             $tarefaConcluida = $this->usuarioTarefaRepository->findByIds($body['id_usuario'], $body['id_tarefa']);
-
+            $usuario = $this->usuarioRepository->findOneById($body['id_usuario']);
+            $tarefa = $this->repository->findOneById($idTarefa);
             if (!isset($tarefaConcluida)) {
                 return $this->response(trans('messages.tarefa.nao_localizada'), 404);
             }
-
+            $usuario['gold'] = $usuario['gold'] + $tarefa['reward_gold'];
+            $usuario['xp'] = $usuario['xp'] + $tarefa['reward_exp'];
             $tarefaConcluida['status'] = $body['status'];
             
             DB::beginTransaction();
             $this->usuarioTarefaRepository->save($tarefaConcluida);
+            $this->usuarioRepository->save($usuario);
             DB::commit();
 
             return $this->response(trans('messages.tarefa.alterada'), 200);

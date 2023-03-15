@@ -23,7 +23,7 @@ class TarefaRepository extends BaseRepository
     {
         return $this->model
             ->select('*')
-            ->where('id_tarefa', $id)
+            ->where('id', $id)
             ->first();
     }
 
