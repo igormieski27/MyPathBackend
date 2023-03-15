@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Tarefa;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Collection;
 
-class TarefaRepository extends BaseRepository
+class ItemRepository extends BaseRepository
 {
     public function __construct()
     {
-        $this->model = $this->resolveModel(Tarefa::class);
+        $this->model = $this->resolveModel(Item::class);
     }
 
     public function listar(): Collection

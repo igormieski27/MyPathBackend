@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HabitoController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\SaidaController;
@@ -44,6 +45,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/concluirTarefa', [TarefaController::class, 'concluirTarefa']);
         Route::post('/vincularTarefa', [TarefaController::class, 'vincularTarefa']);
     });
+
+    // ITENS
+    Route::group(['prefix' => 'item'], function () {
+        Route::get('/listar', [ItemController::class, 'listar']);
+        Route::get('/carregar/{id}', [ItemController::class, 'buscarItem']);
+        Route::post('/salvar', [ItemController::class, 'save']);
+        Route::delete('/excluir/{id}', [ItemController::class, 'delete']);
+    });    
 
     // USUARIO
     Route::group(['prefix' => 'usuario'], function () {

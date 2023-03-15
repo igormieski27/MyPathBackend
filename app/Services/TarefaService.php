@@ -117,6 +117,7 @@ class TarefaService extends BaseService
             $usuario['gold'] = $usuario['gold'] + $tarefa['reward_gold'];
             $usuario['xp'] = $usuario['xp'] + $tarefa['reward_exp'];
             $tarefaConcluida['status'] = $body['status'];
+            $tarefaConcluida['data_conclusao'] = date("Y-m-d h:i:sa");
             
             DB::beginTransaction();
             $this->usuarioTarefaRepository->save($tarefaConcluida);
