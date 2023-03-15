@@ -31,6 +31,5 @@ class UsuarioTarefaRepository extends BaseRepository
             ->where('id_tarefa', $idTarefa)
             ->first();
     }
-    }
-
 }
+
