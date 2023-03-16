@@ -144,10 +144,5 @@ class TarefaService extends BaseService
             DB::rollBack();
             return $this->responseFailure($e->getMessage());
         }
-    }
-    
-    
-
-  
-
+    }    
 }

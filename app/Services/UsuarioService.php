@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Repositories\UsuarioRepository;
 use App\Services\BaseService;
 use App\Repositories\UsuarioTarefaRepository;
+use App\Repositories\UsuarioItemRepository;
 use App\Repositories\TarefaRepository;
 
 use Illuminate\Http\Request;
@@ -15,12 +16,14 @@ class UsuarioService extends BaseService
 {
     private $usuarioRepository;
     protected UsuarioTarefaRepository $usuarioTarefaRepository;
+    protected UsuarioItemRepository $usuarioItemRepository;
     protected TarefaRepository $tarefaRepository;
 
     public function __construct(
         Request $request,
         UsuarioRepository $usuarioRepository,
         UsuarioTarefaRepository $usuarioTarefaRepository,
+        UsuarioItemRepository $usuarioItemRepository,
         TarefaRepository $tarefaRepository
     )
     {
@@ -28,6 +31,7 @@ class UsuarioService extends BaseService
 
         $this->usuarioRepository = $usuarioRepository;
         $this->usuarioTarefaRepository = $usuarioTarefaRepository;
+        $this->usuarioItemRepository = $usuarioItemRepository;
     }
 
     public function logar($body)
@@ -96,4 +100,33 @@ class UsuarioService extends BaseService
 
     //     return $this->responseSuccess(['usuario' => $usuario, 'tarefas' => $tarefas ]);
     // }
+    public function buscarAtividadeSemanal(string $id)
+    {
+        $atividade = DB::select(DB::raw("
+        select count(*)
+            from (
+                select data_conclusao
+                    from usuario_tarefa 
+                    where data_conclusao between (NOW() - interval '7 days') and NOW()
+                    and id_usuario = $id
+                ) as atividadeSemanal
+            group by data_conclusao
+        "));
+        
+        return $this->responseSuccess($atividade);
+    }
+
+    public function comprarItem($body)
+    {
+        try {
+            DB::beginTransaction();
+            $usuario = $this->usuarioItemRepository->create($body);
+            DB::commit();
+            return $this->responseCreated(trans(isset($body['id']) ? 'messages.usuario.alterado' : 'messages.auth.cadastrado'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->responseFailure($e);
+        }   
+    }
 }
+

@@ -58,5 +58,13 @@ class UsuarioController extends BaseController
             'xp'
         ]));
     }
+    
+    public function buscarAtividadeSemanal(Request $request, string $id, UsuarioService $usuarioService){
+        return $usuarioService->buscarAtividadeSemanal($id);
+    }
+
+    public function comprarItem(Request $request, UsuarioService $usuarioService){
+
+    }
 
 }

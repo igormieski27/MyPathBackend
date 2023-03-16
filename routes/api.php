@@ -57,7 +57,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // USUARIO
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/carregar/{id}', [UsuarioController::class, 'carregar']);
+        Route::get('/buscarAtividadeSemanal/{id}', [UsuarioController::class, 'buscarAtividadeSemanal']);
         Route::post('/salvar', [UsuarioController::class, 'save']);
+
     });
 });
 

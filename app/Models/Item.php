@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Laravel\Sanctum\HasApiTokens;
 
-class Items extends BaseModel
+class Item extends BaseModel
 {
     use HasFactory;
 
@@ -21,7 +21,8 @@ class Items extends BaseModel
     protected $fillable = [
         'nome',
         'valor',
-        'referencia'
+        'referencia',
+        'categoria'
     ];
 
     /**
