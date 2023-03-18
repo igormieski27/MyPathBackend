@@ -11,6 +11,7 @@ use App\Repositories\TarefaRepository;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioService extends BaseService
 {
@@ -36,12 +37,16 @@ class UsuarioService extends BaseService
 
     public function logar($body)
     {
-        $usuario = $this->usuarioRepository->validarLogin($body['email'], $body['senha']);
+        $usuario = $this->usuarioRepository->carregarPorEmail($body['email']);
 
         if (!$usuario) {
             return $this->responseNotFound(trans('messages.auth.invalido'));
         }
 
+        if (!Hash::check(base64_decode($body['senha']), $usuario->senha)) {
+            return $this->responseNotFound(trans('messages.auth.invalido'));
+        }
+        
         return $this->responseSuccess([
             'usuario' => $usuario,
             'token' => $usuario->createToken("API TOKEN")->plainTextToken

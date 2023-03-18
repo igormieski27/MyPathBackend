@@ -3,7 +3,7 @@
 return [
     'auth' => [
         'invalido' => 'Usuário ou senha inválidos.',
-        'email_invalido' => 'O E-mail já existe.',
+        'email_invalido' => 'E-mail já cadastrado.',
         'cadastrado' => 'Usuário cadastrado com sucesso.'
     ],
     'habito' => [

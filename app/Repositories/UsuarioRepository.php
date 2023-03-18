@@ -13,12 +13,11 @@ class UsuarioRepository extends BaseRepository
         $this->model = $this->resolveModel(Usuario::class);
     }
 
-    public function validarLogin($email, $senha): ?Usuario
+    public function carregarPorEmail($email): ?Usuario
     {
         return $this->model
             ->select('*')
             ->where('email', $email)
-            ->where('senha', $senha)
             ->first();
     }
 
