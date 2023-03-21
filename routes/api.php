@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // TAREFAS
     Route::group(['prefix' => 'tarefa'], function () {
-        Route::get('/listar', [TarefaController::class, 'listar']);
+        Route::get('/listar/{id}', [TarefaController::class, 'listar']);
         Route::get('/carregar/{id}', [TarefaController::class, 'carregarTarefas']);
         Route::post('/salvar', [TarefaController::class, 'save']);
         Route::delete('/excluir/{id}', [TarefaController::class, 'delete']);

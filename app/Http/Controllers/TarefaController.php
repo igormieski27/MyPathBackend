@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 class TarefaController extends BaseController
 {
-    public function listar(Request $request, TarefaService $TarefasService)
+    public function listar(Request $request, string $idUsuario, TarefaService $TarefasService)
     {
-        return $TarefasService->listarTarefas();
+        return $TarefasService->listarTarefas($idUsuario);
     }
 
     public function buscarTarefa(Request $request, string $id, TarefaService $TarefasService)

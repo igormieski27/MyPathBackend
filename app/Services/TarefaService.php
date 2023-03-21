@@ -28,9 +28,9 @@ class TarefaService extends BaseService
         $this->usuarioRepository = $usuarioRepository;
     }
 
-    public function listarTarefas()
+    public function listarTarefas(string $idUsuario)
     {
-        $Tarefas = $this->repository->listar();
+        $Tarefas = $this->repository->listar($idUsuario);
 
         return $this->responseSuccess($Tarefas);
     }
