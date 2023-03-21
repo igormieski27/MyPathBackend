@@ -5,20 +5,27 @@ namespace App\Services;
 use Illuminate\Http\Request;
 
 use App\Repositories\ItemRepository;
+use App\Repositories\UsuarioItemRepository;
+use App\Repositories\UsuarioRepository;
 use Illuminate\Support\Facades\DB;
 
 class ItemService extends BaseService
 {
     protected ItemRepository $repository;
-
+    protected UsuarioItemRepository $usuarioItemRepository;
+    protected UsuarioRepository $usuarioRepository;
     public function __construct(
         Request $request,
         ItemRepository $repository,
+        UsuarioItemRepository $usuarioItemRepository,
+        UsuarioRepository $usuarioRepository,
     )
     {
         parent::__construct($request);
 
         $this->repository = $repository;
+        $this->usuarioItemRepository = $usuarioItemRepository;
+        $this->usuarioRepository = $usuarioRepository;
     }
 
     public function listarItem()

@@ -18,6 +18,7 @@ class UsuarioService extends BaseService
     private $usuarioRepository;
     protected UsuarioTarefaRepository $usuarioTarefaRepository;
     protected UsuarioItemRepository $usuarioItemRepository;
+    protected ItemRepository $itemRepository;
     protected TarefaRepository $tarefaRepository;
 
     public function __construct(
@@ -25,6 +26,7 @@ class UsuarioService extends BaseService
         UsuarioRepository $usuarioRepository,
         UsuarioTarefaRepository $usuarioTarefaRepository,
         UsuarioItemRepository $usuarioItemRepository,
+        ItemRepository $itemRepository,
         TarefaRepository $tarefaRepository
     )
     {
@@ -33,6 +35,7 @@ class UsuarioService extends BaseService
         $this->usuarioRepository = $usuarioRepository;
         $this->usuarioTarefaRepository = $usuarioTarefaRepository;
         $this->usuarioItemRepository = $usuarioItemRepository;
+        $this->itemRepository = $itemRepository;
     }
 
     public function logar($body)
@@ -125,7 +128,15 @@ class UsuarioService extends BaseService
     {
         try {
             DB::beginTransaction();
-            $usuario = $this->usuarioItemRepository->create($body);
+            // pegando o usuário p/ pegar o saldo de gold dele
+            $Usuario = $this->usuarioRepository->findOneById($body['id_usuario']);
+            // pegando o item p/ pegar o valor do item
+            $Item = $this->repository->findOneById($body['id_item']);
+            // subtraindo o valor do item pelo valor do gold 
+            $Usuario['gold'] = $Usuario['gold'] - $Item['valor'];
+            // commita
+            $this->usuarioItemRepository->create($body);
+            $this->usuarioRepository->save($Usuario);
             DB::commit();
             return $this->responseCreated(trans(isset($body['id']) ? 'messages.usuario.alterado' : 'messages.auth.cadastrado'));
         } catch (\Exception $e) {
