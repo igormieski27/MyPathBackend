@@ -26,7 +26,6 @@ class UsuarioService extends BaseService
         UsuarioRepository $usuarioRepository,
         UsuarioTarefaRepository $usuarioTarefaRepository,
         UsuarioItemRepository $usuarioItemRepository,
-        ItemRepository $itemRepository,
         TarefaRepository $tarefaRepository
     )
     {
@@ -35,7 +34,6 @@ class UsuarioService extends BaseService
         $this->usuarioRepository = $usuarioRepository;
         $this->usuarioTarefaRepository = $usuarioTarefaRepository;
         $this->usuarioItemRepository = $usuarioItemRepository;
-        $this->itemRepository = $itemRepository;
     }
 
     public function logar($body)
@@ -111,14 +109,17 @@ class UsuarioService extends BaseService
     public function buscarAtividadeSemanal(string $id)
     {
         $atividade = DB::select(DB::raw("
-        select count(*)
-            from (
-                select data_conclusao
-                    from usuario_tarefa 
-                    where data_conclusao between (NOW() - interval '7 days') and NOW()
-                    and id_usuario = $id
-                ) as atividadeSemanal
-            group by data_conclusao
+        SELECT COALESCE(count(data_conclusao), 0) as count
+        FROM generate_series(NOW()::date - interval '6 days', NOW(), '1 day'::interval) as dates
+        LEFT JOIN (
+            SELECT data_conclusao
+            FROM usuario_tarefa 
+            WHERE data_conclusao BETWEEN (NOW() - interval '7 days') AND NOW()
+            AND id_usuario = 2
+        ) AS atividadeSemanal
+        ON dates::date = atividadeSemanal.data_conclusao::date
+        GROUP BY dates::date
+        ORDER BY dates::date;
         "));
         
         return $this->responseSuccess($atividade);
