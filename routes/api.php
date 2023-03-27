@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ITENS
     Route::group(['prefix' => 'item'], function () {
-        Route::get('/listar', [ItemController::class, 'listar']);
+        Route::get('/listar/{id}', [ItemController::class, 'listar']);
         Route::get('/carregar/{id}', [ItemController::class, 'buscarItem']);
         Route::post('/salvar', [ItemController::class, 'save']);
         Route::delete('/excluir/{id}', [ItemController::class, 'delete']);

@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 class ItemController extends BaseController
 {
-    public function listar(Request $request, ItemService $ItemService)
+    public function listar(Request $request, string $id, ItemService $ItemService)
     {
-        return $ItemService->listarItem();
+        return $ItemService->listarItem($id);
     }
 
     public function buscarItem(Request $request, string $id, ItemService $ItemService)

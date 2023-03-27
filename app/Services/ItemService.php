@@ -28,9 +28,9 @@ class ItemService extends BaseService
         $this->usuarioRepository = $usuarioRepository;
     }
 
-    public function listarItem()
+    public function listarItem(string $idUsuario)
     {
-        $Items = $this->repository->listar();
+        $Items = $this->repository->listar($idUsuario);
 
         return $this->responseSuccess($Items);
     }
