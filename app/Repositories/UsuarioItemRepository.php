@@ -15,7 +15,8 @@ class UsuarioItemRepository extends BaseRepository
     public function findByIdUsuario(string $id)
     {
         return $this->model
-            ->select('*')
+            ->select('usuario_item.*', 'items.*')
+            ->join('items', 'items.id', '=', 'usuario_item.id_item')
             ->where('id_usuario', $id)
             ->get();
     }
