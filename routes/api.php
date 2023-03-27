@@ -30,7 +30,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::middleware('auth:sanctum')->group(function () { 
     // HABITOS
     Route::group(['prefix' => 'habito'], function () {
-        Route::get('/listar', [HabitoController::class, 'listar']);
+        Route::get('/listar/{id}', [HabitoController::class, 'listar']);
         Route::get('/carregar/{id}', [HabitoController::class, 'buscarHabito']);
         Route::post('/salvar', [HabitoController::class, 'save']);
         Route::delete('/excluir/{id}', [HabitoController::class, 'delete']);

@@ -12,10 +12,11 @@ class HabitoRepository extends BaseRepository
         $this->model = $this->resolveModel(Habito::class);
     }
 
-    public function listar(): Collection
+    public function listar(string $idUsuario): Collection
     {
         return $this->model
             ->select('*')
+            ->where('id_usuario', $idUsuario)
             ->orderBy('id', 'desc')
             ->get();
     }

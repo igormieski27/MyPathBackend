@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 class HabitoController extends BaseController
 {
-    public function listar(Request $request, HabitoService $HabitosService)
+    public function listar(Request $request, string $id, HabitoService $HabitosService)
     {
-        return $HabitosService->listarHabitos();
+        return $HabitosService->listarHabitos($id);
     }
 
     public function buscarHabito(Request $request, string $id, HabitoService $HabitosService)

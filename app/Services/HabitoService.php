@@ -21,9 +21,9 @@ class HabitoService extends BaseService
         $this->repository = $repository;
     }
 
-    public function listarHabitos()
+    public function listarHabitos(string $idUsuario)
     {
-        $Habitos = $this->repository->listar();
+        $Habitos = $this->repository->listar($idUsuario);
 
         return $this->responseSuccess($Habitos);
     }
