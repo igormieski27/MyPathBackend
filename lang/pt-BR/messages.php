@@ -28,6 +28,7 @@ return [
     'usuario' => [
         'nao_localiado' => 'Usuário não localizado.',
         'alterado' => 'Usuário alterado com sucesso.',
+        'comprado' => 'Compra realizada com sucesso.',
         'excluido' => 'Usuário excluído com sucesso.',
     ],
 ];

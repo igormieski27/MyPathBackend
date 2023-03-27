@@ -22,7 +22,6 @@ class TarefaController extends BaseController
     {
         $request->validate([
             'id' => 'numeric',
-            'id_usuario' => 'required|numeric',
             'title' => 'string',
             'description' => 'string',
             'reward_exp' => 'numeric',

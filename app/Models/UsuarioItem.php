@@ -20,8 +20,6 @@ class UsuarioItem extends BaseModel
     protected $hidden = [];
     
     protected $casts = [
-        'id_usuario' => 'string',
-        'id_item' => 'string',
         'id' => 'string'
     ];
 }

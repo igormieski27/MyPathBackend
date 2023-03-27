@@ -64,7 +64,7 @@ class UsuarioController extends BaseController
     }
 
     public function comprarItem(Request $request, UsuarioService $usuarioService){
-        return $usuarioService->comprarItem($request);
+        return $usuarioService->comprarItem($request->only(['id_usuario', 'id_item']));
     }
 
 }

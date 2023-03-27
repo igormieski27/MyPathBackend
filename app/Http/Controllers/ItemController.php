@@ -31,7 +31,8 @@ class ItemController extends BaseController
             'id',
             'nome',
             'valor',
-            'referencia'
+            'referencia',
+            'categoria'
         ]));
     }
 

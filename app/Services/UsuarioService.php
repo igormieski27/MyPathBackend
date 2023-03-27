@@ -8,6 +8,7 @@ use App\Services\BaseService;
 use App\Repositories\UsuarioTarefaRepository;
 use App\Repositories\UsuarioItemRepository;
 use App\Repositories\TarefaRepository;
+use App\Repositories\ItemRepository;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class UsuarioService extends BaseService
         UsuarioRepository $usuarioRepository,
         UsuarioTarefaRepository $usuarioTarefaRepository,
         UsuarioItemRepository $usuarioItemRepository,
+        ItemRepository $itemRepository,
         TarefaRepository $tarefaRepository
     )
     {
@@ -34,6 +36,7 @@ class UsuarioService extends BaseService
         $this->usuarioRepository = $usuarioRepository;
         $this->usuarioTarefaRepository = $usuarioTarefaRepository;
         $this->usuarioItemRepository = $usuarioItemRepository;
+        $this->itemRepository = $itemRepository;
     }
 
     public function logar($body)
@@ -132,17 +135,18 @@ class UsuarioService extends BaseService
             // pegando o usuário p/ pegar o saldo de gold dele
             $Usuario = $this->usuarioRepository->findOneById($body['id_usuario']);
             // pegando o item p/ pegar o valor do item
-            $Item = $this->repository->findOneById($body['id_item']);
+            $Item = $this->itemRepository->findOneById($body['id_item']);
             // subtraindo o valor do item pelo valor do gold 
             $Usuario['gold'] = $Usuario['gold'] - $Item['valor'];
             // commita
-            $this->usuarioItemRepository->create($body);
+            $usuario = $this->usuarioItemRepository->create($body);
+            $this->usuarioItemRepository->save($usuario);
             $this->usuarioRepository->save($Usuario);
             DB::commit();
-            return $this->responseCreated(trans(isset($body['id']) ? 'messages.usuario.alterado' : 'messages.auth.cadastrado'));
+            return $this->responseCreated(trans('messages.usuario.comprado'));
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->responseFailure($e);
+            return $this->responseFailure($e->getMessage());
         }   
     }
 }
