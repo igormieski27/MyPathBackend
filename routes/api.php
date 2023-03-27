@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/buscarAtividadeSemanal/{id}', [UsuarioController::class, 'buscarAtividadeSemanal']);
         Route::post('/salvar', [UsuarioController::class, 'save']);
         Route::post('/comprarItem', [UsuarioController::class, 'comprarItem']);
-
+        Route::get('/listarInventario/{id}', [UsuarioController::class, 'listarInventario']);
     });
 });
 

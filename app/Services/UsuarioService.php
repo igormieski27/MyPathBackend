@@ -149,5 +149,11 @@ class UsuarioService extends BaseService
             return $this->responseFailure($e->getMessage());
         }   
     }
+    
+    public function listarInventario($id){
+        $Itens = $this->usuarioItemRepository->findByIdUsuario($id);
+
+        return $this->responseSuccess($Itens);
+    }
 }
 
