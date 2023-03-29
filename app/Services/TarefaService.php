@@ -98,6 +98,29 @@ class TarefaService extends BaseService
 
     // Métodos UsuarioTarefa
 
+
+    public function cancelarTarefa($body)
+    {
+        $Tarefa = $this->usuarioTarefaRepository->findByIds($body['id_usuario'], $body['id_tarefa']);
+        
+        if (!$Tarefa) {
+            return $this->responseNotFound(trans('messages.Tarefa.nao_localizado'));
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $Tarefa->delete();
+
+            DB::commit();
+
+            return $this->responseSuccess(trans('messages.Tarefa.excluido'));
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->responseFailure(trans('messages.Tarefa.nao_localizado'));
+        }
+    }
+
     public function findByIdUsuario(string $id){
         $tarefas = $this->usuarioTarefaRepository->findByIdUsuario($id);
         return $this->responseSuccess(['tarefas' => $tarefas]);

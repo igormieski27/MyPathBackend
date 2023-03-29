@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/salvar', [TarefaController::class, 'save']);
         Route::delete('/excluir/{id}', [TarefaController::class, 'delete']);
         Route::post('/concluirTarefa', [TarefaController::class, 'concluirTarefa']);
+        Route::post('/cancelarTarefa', [TarefaController::class, 'cancelarTarefa']);
         Route::post('/vincularTarefa', [TarefaController::class, 'vincularTarefa']);
     });
 

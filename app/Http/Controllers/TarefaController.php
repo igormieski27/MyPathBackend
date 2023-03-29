@@ -61,6 +61,17 @@ class TarefaController extends BaseController
         return $TarefasService->concluirTarefa($request->only(['id_usuario', 'id_tarefa', 'status']));
 
     }
+
+    public function cancelarTarefa(Request $request, TarefaService $TarefasService){
+        $request->validate([
+            'id_usuario' => 'required|string',
+            'id_tarefa' => 'required|string',
+        ]);
+        return $TarefasService->concluirTarefa($request->only(['id_usuario', 'id_tarefa']));
+
+    }
+
+    
     
     public function vincularTarefa(Request $request, TarefaService $TarefasService){
         $request->validate([
