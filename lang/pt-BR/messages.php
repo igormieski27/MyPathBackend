@@ -22,7 +22,8 @@ return [
     'tarefa' => [
         'nao_localizada' => 'Tarefa não localizada.',
         'alterada' => 'Tarefa alterada com sucesso.',
-        'vinculada' => 'Tarefa vinculada com sucesso'
+        'vinculada' => 'Tarefa vinculada com sucesso',
+        'excluido' => 'Tarefa cancelada com sucesso'
     ],
 
     'usuario' => [
