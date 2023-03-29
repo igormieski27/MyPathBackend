@@ -43,9 +43,9 @@ class TarefaController extends BaseController
         ]));
     }
 
-    public function delete(Request $request, TarefaService $TarefasService)
+    public function delete(Request $request, string $id, TarefaService $TarefasService)
     {
-        return $TarefasService->delete($request->only(['id']));
+        return $TarefasService->delete($id);
     }
 
     public function carregarTarefas(Request $request, string $id, TarefaService $TarefasService){

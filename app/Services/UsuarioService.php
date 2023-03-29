@@ -118,12 +118,12 @@ class UsuarioService extends BaseService
             SELECT data_conclusao
             FROM usuario_tarefa 
             WHERE data_conclusao BETWEEN (NOW() - interval '7 days') AND NOW()
-            AND id_usuario = 2
+            AND id_usuario = :idUsuario
         ) AS atividadeSemanal
         ON dates::date = atividadeSemanal.data_conclusao::date
         GROUP BY dates::date
         ORDER BY dates::date;
-        "));
+        "), ['idUsuario' => $id]);
         
         return $this->responseSuccess($atividade);
     }

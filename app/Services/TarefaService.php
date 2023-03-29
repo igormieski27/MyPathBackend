@@ -73,9 +73,9 @@ class TarefaService extends BaseService
         }
     }
 
-    public function delete(array $body)
+    public function delete(string $id)
     {
-        $Tarefa = $this->repository->findOneById($body['id']);
+        $Tarefa = $this->repository->findOneById($id);
         
         if (!$Tarefa) {
             return $this->responseNotFound(trans('messages.Tarefa.nao_localizado'));
@@ -116,6 +116,13 @@ class TarefaService extends BaseService
             }
             $usuario['gold'] = $usuario['gold'] + $tarefa['reward_gold'];
             $usuario['xp'] = $usuario['xp'] + $tarefa['reward_exp'];
+
+            if ($usuario['xp'] >= 100) {
+                $usuario['xp'] = $usuario['xp'] - 100;
+                $usuario['level'] = $usuario['level'] + 1;
+            }
+
+
             $tarefaConcluida['status'] = $body['status'];
             $tarefaConcluida['data_conclusao'] = date("Y-m-d h:i:sa");
             
