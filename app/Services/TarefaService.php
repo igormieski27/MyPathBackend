@@ -114,7 +114,7 @@ class TarefaService extends BaseService
 
             DB::commit();
 
-            return $this->responseSuccess(trans('messages.Tarefa.excluido'));
+            return $this->responseSuccess(trans('messages.tarefa.excluido'));
         } catch (\Exception $e) {
             DB::rollback();
             return $this->responseFailure(trans('messages.Tarefa.nao_localizado'));
