@@ -13,9 +13,8 @@ Características
 
 # Screenshots
 
-![image](https://github.com/igormieski27/backend/assets/108681204/8c4e98aa-d904-462d-a488-b8dc4e406ae8)
+![image](https://github.com/igormieski27/backend/assets/108681204/8c4e98aa-d904-462d-a488-b8dc4e406ae8) ![image](https://github.com/igormieski27/backend/assets/108681204/197516eb-64fa-49d7-8f2f-0ad419773596)
 
-![image](https://github.com/igormieski27/backend/assets/108681204/197516eb-64fa-49d7-8f2f-0ad419773596)
 
 
 
