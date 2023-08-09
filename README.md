@@ -1,4 +1,4 @@
-# Descrição
+# MyPath | Repositórido de BackEnd
 
 O _MyPath_ é um aplicativo desenvolvido em Laravel e Vue.js que permite aos usuários acompanharem e visualizarem o progresso de suas atividades de desenvolvimento pessoal. Inspirado por elementos lúdicos de um RPG (Role-Playing Game), o _MyPath_ adiciona um toque divertido e motivador à busca pelo crescimento pessoal.
 
