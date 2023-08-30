@@ -24,8 +24,7 @@ Para acessar o processo de desenvolvimento/pesquisa/extensão do projeto, acesse
 
 https://docs.google.com/document/d/1HJ55bCcBwv_7Qb3u8Qw9fJ8a7kcQAIXDZnxXPxVqZUE/edit
 
-
-*English*
+# --------------- *English* ---------------
 
 # MyPath | Backend Repository
 
